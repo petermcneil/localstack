@@ -1,4 +1,4 @@
-IMAGE_NAME ?= localstack/localstack
+IMAGE_NAME ?= elections-localstack
 IMAGE_NAME_BASE ?= localstack/java-maven-node-python
 IMAGE_NAME_LIGHT ?= localstack/localstack-light
 IMAGE_NAME_FULL ?= localstack/localstack-full
@@ -22,7 +22,6 @@ setup-venv:
 		(test -e $(VENV_DIR) || virtualenv $(VENV_OPTS) $(VENV_DIR))
 
 install-venv:
-	make setup-venv && \
 		test ! -e requirements.txt || ($(VENV_RUN); $(PIP_CMD) -q install -r requirements.txt)
 
 init:              ## Initialize the infrastructure, make sure all libs are downloaded

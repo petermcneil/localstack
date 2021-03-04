@@ -3,6 +3,12 @@ FROM localstack/java-maven-node-python
 MAINTAINER Waldemar Hummer (waldemar.hummer@gmail.com)
 LABEL authors="LocalStack Contributors"
 
+ARG LOCALSTACK_BUILD_DATE
+ARG LOCALSTACK_BUILD_GIT_HASH
+
+ENV LOCALSTACK_BUILD_DATE=${LOCALSTACK_BUILD_DATE}
+ENV LOCALSTACK_BUILD_GIT_HASH=${LOCALSTACK_BUILD_GIT_HASH}
+
 # set library path and default LocalStack hostname
 ENV LD_LIBRARY_PATH=/usr/lib/jvm/java-11/lib:/usr/lib/jvm/java-11/lib/server
 ENV LOCALSTACK_HOSTNAME=localhost
@@ -86,8 +92,8 @@ RUN ES_BASE_DIR=localstack/infra/elasticsearch; \
 RUN echo "127.0.0.1 localhost.localdomain" >> /etc/hosts
 
 # run tests (to verify the build before pushing the image)
-ADD tests/ tests/
-RUN LAMBDA_EXECUTOR=local make test
+#ADD tests/ tests/
+#RUN LAMBDA_EXECUTOR=local make test
 
 # clean up temporary files created during test execution
 RUN apk del --purge git cmake gcc musl-dev libc-dev; \
